@@ -19,8 +19,7 @@ class ViewController: UIViewController {
         let digit = sender.currentTitle!
         if userIsInTheMiddleOfTypingANumber {
             display.text = display.text! + digit
-        }
-        else{
+        } else {
             display.text = digit
             userIsInTheMiddleOfTypingANumber = true
             }
@@ -34,14 +33,12 @@ class ViewController: UIViewController {
             
          }
         switch operation {
-            case "x": performOperation(multiply)
-//            case "÷":
-//            case "+":
-//            case "-":
+        case "x": performOperation { $0 * $1 }
+        case "÷": performOperation { $1 / $0 }
+        case "+": performOperation { $0 + $1 }
+        case "-": performOperation { $1 - $0 }
         default: break
         }
-        
-        
     }
     
     func performOperation(operation: (Double, Double) ->Double) {
@@ -52,15 +49,15 @@ class ViewController: UIViewController {
         }
 
     }
-    func multiply(option1: Double, option2: Double) ->Double{
-        return option1 * option2
-    }
     
     var operandStack =  Array<Double>()
     
+   
     @IBAction func enter() {
         userIsInTheMiddleOfTypingANumber = false
         operandStack.append(displayValue)
+        
+        
     }
     
     var displayValue: Double{
